@@ -48,7 +48,7 @@ from sklearn.decomposition import PCA # Keep PCA
 from tensorflow.keras.models import Model
 from tensorflow.keras.layers import (Input, LSTM, Dense, Embedding, # Keep Embedding, Dense, Input
                                      Concatenate, Masking, Flatten, Dropout) # Keep Flatten, Concatenate, Dropout
-# Remove Masking, LSTM unless needed for a hybrid approach (not requested here)
+
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 import tensorflow as tf
 from tensorflow.keras.metrics import RootMeanSquaredError
@@ -82,7 +82,7 @@ tf.get_logger().setLevel('WARN')
 tf.autograph.set_verbosity(0)
 
 # --- Load Data ---
-# Assume df is loaded
+
 # df = pd.read_csv('your_data.csv')
 print("--- Initial Data Sample (from df) ---")
 print(df.head())
@@ -90,7 +90,6 @@ print(f"\nInitial DataFrame shape: {df.shape}")
 
 # --- Preprocessing ---
 
-# --- Preprocessing ---
 
 # 1. Clean column names
 print("\n--- 1. Cleaning Column Names ---")
@@ -98,7 +97,7 @@ df.columns = df.columns.str.strip()
 
 # 2. Convert object columns to numeric
 print("\n--- 2. Converting Columns to Numeric ---")
-# (Assuming this part works as intended)
+
 potential_numeric_cols = df.select_dtypes(include='object').columns
 if 'Company' in potential_numeric_cols: potential_numeric_cols = potential_numeric_cols.drop('Company')
 converted_count = 0
@@ -113,7 +112,7 @@ for col in potential_numeric_cols:
     except Exception: pass
 print(f"Attempted numeric conversion. {converted_count} columns changed type.")
 
-# --- [MODIFIED] Step 3: Feature Engineering (Generic Differences) ---
+# ---  Step 3: Feature Engineering (Generic Differences) ---
 print("\n--- 3. Feature Engineering (Generic Differences) ---")
 target_cols = ['Target 1', 'Target 2', 'Target 3']
 engineered_features = []
@@ -221,7 +220,7 @@ if n_original_features > 0:
     print(f"PCA applied. Reduced features from {n_original_features} to {n_components}.")
     pc_cols = [f'PC_{i+1}' for i in range(n_components)]
     pca_df = pd.DataFrame(pca_components, columns=pc_cols, index=numeric_df_final_processed.index)
-    numeric_features_for_lstm = pc_cols # LSTM will use these PC columns
+    numeric_features_for_lstm = pc_cols 
 else:
     print("Skipping PCA: No numeric features to process.")
     pca_df = pd.DataFrame(index=df.index)
