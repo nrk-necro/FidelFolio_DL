@@ -235,9 +235,6 @@ MIN_HISTORY_YEARS = 2    # Minimum years of history required for a company to ma
 warnings.filterwarnings('ignore', category=pd.errors.SettingWithCopyWarning)
 
 # --- Load Data ---
-# Assume your DataFrame is already loaded and named 'df'
-# Example:
-# df = pd.read_csv('your_data.csv') # Or however you load it
 
 # Verify essential columns exist
 required_cols = ['Company', 'Year', 'Target 1', 'Target 2', 'Target 3']
